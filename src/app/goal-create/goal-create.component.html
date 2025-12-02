@@ -1,0 +1,81 @@
+<!-- src/app/goal-create/goal-create.component.html -->
+<div class="gc-backdrop" role="dialog" aria-modal="true">
+  <div class="gc-modal">
+    <header class="gc-header">
+      <h3>Criar Nova Meta</h3>
+      <button class="gc-close" (click)="onCancel()" aria-label="Fechar">
+        &times;
+      </button>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="gc-form">
+      <label class="gc-row">
+        <span class="label">Título *</span>
+        <input
+          formControlName="title"
+          type="text"
+          placeholder="Ex: Beber 2 litros de água"
+        />
+        <small
+          class="error"
+          *ngIf="form.get('title')?.touched && form.get('title')?.invalid"
+        >
+          Título é obrigatório (máx 60 caracteres).
+        </small>
+      </label>
+
+      <label class="gc-row">
+        <span class="label">Descrição</span>
+        <textarea
+          formControlName="description"
+          placeholder="Descrição (opcional)"
+        ></textarea>
+      </label>
+
+      <div class="gc-grid">
+        <label class="gc-row">
+          <span class="label">Data de Início *</span>
+          <input formControlName="startDate" type="date" [min]="minDate" />
+        </label>
+
+        <label class="gc-row">
+          <span class="label">Data de Fim *</span>
+         <input formControlName="endDate" type="date" [min]="form.get('startDate')?.value || minDate" />
+        </label>
+
+        <label class="gc-row">
+          <span class="label">Frequência *</span>
+          <select formControlName="frequency">
+            <option value="">Selecione a frequência</option>
+            <option *ngFor="let f of frequencies" [value]="f">{{ f }}</option>
+          </select>
+        </label>
+
+        <label class="gc-row">
+          <span class="label">Categoria *</span>
+          <select formControlName="category">
+            <option value="">Selecione a categoria</option>
+            <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+          </select>
+        </label>
+
+        <label class="gc-row">
+          <span class="label">Prioridade *</span>
+          <select formControlName="priority">
+            <option value="">Selecione a prioridade</option>
+            <option *ngFor="let p of priorities" [value]="p">{{ p }}</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="gc-actions">
+        <button type="button" class="btn btn-ghost" (click)="onCancel()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="submitting">
+          Criar Novo Meta
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

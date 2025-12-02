@@ -1,0 +1,115 @@
+.card-goal {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 340px;
+  flex-shrink: 0;
+  background-color: var(--background-element);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.header-card-goal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-card-goal h3 {
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header-card-goal span {
+  background-color: var(--primary-color);
+  color: var(--background-element);
+  padding: 8px;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.progress-bar {
+  background-color: var(--background-color);
+  height: 12px;
+  width: 100%;
+  border-radius: 18px;
+}
+
+.progress {
+  background-color: var(--primary-color);
+  height: 100%;
+  border-radius: 18px;
+}
+
+.card-goal p {
+  color: var(--text-color-light);
+}
+
+.container-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-info p i {
+  margin-right: 4px;
+}
+
+.container-info p:first-child {
+  color: var(--sucess-color);
+  font-weight: 600;
+}
+
+.check {
+  border-top: 1px solid var(--border-color);
+  padding-top: 18px;
+}
+
+.check button {
+  background-color: transparent;
+  border: 2px solid var(--border-color);
+  padding: 10px;
+  border-radius: 12px;
+  color: var(--white);
+  font-size: 1.02rem;
+  font-size: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.check button:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--shadow-yellow);
+}
+
+.header-goals select {
+  background-color: var(--background-element);
+  color: var(--white);
+  padding: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.header-goals select:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--shadow-yellow);
+}
+
+.btn-complete {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #6a5cff;
+  color: white;
+  font-weight: 600;
+}
+
+.btn-complete[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

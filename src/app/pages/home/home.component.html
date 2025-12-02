@@ -1,0 +1,169 @@
+<header class="header">
+  <div class="container__header container__max">
+    <div class="brand">
+      <img src="../img/logo-phocus.png" alt="Phocus Logo" class="brand__logo" />
+      <span class="brand__name">Phocus</span>
+    </div>
+    <nav class="header__nav">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="#início" class="nav__link">Início</a>
+        </li>
+        <li class="nav__item">
+          <a href="#recursos" class="nav__link">Recursos</a>
+        </li>
+        <li class="nav__item">
+          <a href="#como-funciona" class="nav__link">Como funciona</a>
+        </li>
+        <li class="nav__item">
+          <a href="#contato" class="nav__link">Contato</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <a href="sign" class="btn btn--login">Entrar</a>
+      <a href="sign" class="btn btn--signup">
+        <i class="ti ti-flare"></i>
+        Começar Agora
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="início">
+    <div class="hero__container container__max">
+      <div class="hero__content" data-aos="fade-right" data-aos-duration="900">
+        <div class="hero__highlight">
+          <i class="ti ti-sparkles"></i>
+          <span>Seu progresso começa aqui</span>
+        </div>
+        <h1 class="hero__title">Transforme metas em <span>conquistas</span></h1>
+        <p class="hero__description" data-aos="fade-up" data-aos-delay="200">
+          Crie metas, ganhe XP, suba de nível e desbloqueie recompensas
+          exclusivas. Junte-se a amigos em desafios e acompanhe sua evolução!
+        </p>
+        <div class="hero__actions" data-aos="zoom-in" data-aos-delay="400">
+          <a href="sign" class="hero__button hero__button--start"
+            >Começar Agora</a
+          >
+          <a href="#como-funciona" class="hero__button hero__button--more"
+            >Saiba mais</a
+          >
+        </div>
+      </div>
+      <div
+        class="hero__image-container"
+        data-aos="fade-left"
+        data-aos-duration="1000"
+      >
+        <img
+          src="../img/hero-img.png"
+          alt="Personagem Lumo apontando para texto"
+        />
+      </div>
+    </div>
+  </section>
+  <section class="features" id="recursos">
+    <div class="container__max features__container">
+      <h2 class="features__title">
+        Funcionalidades que <span>transformam</span> sua jornada
+      </h2>
+      <p class="features__description">
+        Tudo que você precisa para alcançar suas metas de forma divertida e
+        motivadora
+      </p>
+      <div class="container__cards">
+        <app-card-feature
+          *ngFor="let c of cards; let i = index"
+          [icon]="c.icon"
+          [title]="c.title"
+          [description]="c.description"
+          [delay]="c.delay"
+          [parity]="i % 2 === 0 ? 'odd' : 'even'"
+        >
+        </app-card-feature>
+      </div>
+    </div>
+  </section>
+  <section class="workflow" id="como-funciona">
+    <div class="container__max workflow__container">
+      <h2 class="workflow__title" data-aos="fade-up">Como funciona?</h2>
+      <p class="workflow__description" data-aos="fade-up" data-aos-delay="150">
+        Em 4 passos simples, você transforma suas metas em realidade
+      </p>
+      <div class="steps__container">
+        <app-step-card
+          *ngFor="let s of steps"
+          [number]="s.number"
+          [title]="s.title"
+          [description]="s.description"
+          [delay]="s.delay"
+        >
+        </app-step-card>
+      </div>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="cta__container container__max">
+      <div class="cta-box">
+        <div
+          class="cta-box__content"
+          data-aos="fade-up"
+          data-aos-duration="900"
+        >
+          <h2 class="cta-box__title">
+            Pronto para alcançar suas <span>metas</span>?
+          </h2>
+          <a href="sign" class="cta-box__button"
+            >Começar gratuitamente <i class="ti ti-rocket"></i
+          ></a>
+        </div>
+        <img
+          src="../img/lumo-welcome.png"
+          alt="Personagem Lumo de braços abertos"
+          data-aos="fade-left"
+          data-aos-delay="300"
+        />
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer" id="contato" data-aos="fade-up" data-aos-duration="1000">
+  <div class="footer__container container__max">
+    <div class="footer__area">
+      <div class="footer__content">
+        <div class="brand">
+          <img
+            src="../img/logo-phocus.png"
+            alt="Phocus Logo"
+            class="brand__logo"
+          />
+          <span class="brand__name">Phocus</span>
+        </div>
+        <p class="footer__description">
+          Transforme suas metas em conquistas com gamificação. Ganhe XP, suba de
+          nível e alcance seus objetivos de forma divertida!
+        </p>
+        <div class="social">
+          <a href="#" class="social__item"><i class="ti ti-mail"></i></a>
+          <a href="#" class="social__item"
+            ><i class="ti ti-brand-facebook"></i
+          ></a>
+          <a href="#" class="social__item"
+            ><i class="ti ti-brand-instagram"></i
+          ></a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <h3>Links rápidos</h3>
+        <a href="#início">Início</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como funciona</a>
+      </div>
+    </div>
+    <p class="footer__copyright">
+      © 2025 Phocus. Todos os direitos reservados.
+    </p>
+  </div>
+</footer>

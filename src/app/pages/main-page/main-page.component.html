@@ -1,0 +1,175 @@
+<div>
+  <header class="header">
+    <div class="container__header">
+      <div class="container_brand_nav">
+        <div class="brand">
+          <img
+            src="../img/logo-phocus.png"
+            alt="Phocus Logo"
+            class="brand__logo"
+          />
+          <span class="brand__name">Phocus</span>
+        </div>
+      </div>
+      <div class="header__actions">
+        <div class="container_level">
+          <span>{{ user?.level ?? 0 }}</span>
+          <span>Nível</span>
+        </div>
+        <div class="container_xp">
+          <i class="ti ti-star-filled"></i>
+          <span>{{ user?.xp ?? 0 }} XP</span>
+        </div>
+        <div class="container_sequence">
+          <i class="ti ti-flare-filled"></i>
+          <span>{{ user?.streak ?? 0 }}</span>
+        </div>
+        <div class="container_user">
+          <a href="rewards.html" title="Loja de Recompensas">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 640"
+              fill="currentColor"
+            >
+              <path
+                d="M256 144C256 108.7 284.7 80 320 80C355.3 80 384 108.7 384 144L384 192L256 192L256 144zM208 192L144 192C117.5 192 96 213.5 96 240L96 448C96 501 139 544 192 544L448 544C501 544 544 501 544 448L544 240C544 213.5 522.5 192 496 192L432 192L432 144C432 82.1 381.9 32 320 32C258.1 32 208 82.1 208 144L208 192zM232 240C245.3 240 256 250.7 256 264C256 277.3 245.3 288 232 288C218.7 288 208 277.3 208 264C208 250.7 218.7 240 232 240zM384 264C384 250.7 394.7 240 408 240C421.3 240 432 250.7 432 264C432 277.3 421.3 288 408 288C394.7 288 384 277.3 384 264z"
+              />
+            </svg>
+          </a>
+          <button
+            class="user-avatar-btn"
+            (click)="toggleUserMenu($event)"
+            aria-haspopup="true"
+            [attr.aria-expanded]="showUserMenu"
+          >
+            <i class="ti ti-user-filled"></i>
+          </button>
+
+          <div class="user-menu" *ngIf="showUserMenu">
+            <p>{{ user?.name }}</p>
+            <button class="logout-btn" (click)="logout($event)">Sair</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <section class="banner">
+      <div class="content">
+        <h1>
+          Bem vindo, <span>{{ user?.name ?? "usuário" }}</span
+          >!
+        </h1>
+        <p>Qual é a sua próxima conquista?</p>
+        <div class="container_info_sequence">
+          <i class="ti ti-flare-filled"></i>
+          <div class="text-sequence">
+            <p>Sequência de {{ user?.streak ?? 0 }} dias!</p>
+            <p>Mantenha o ritmo para desbloquear mais XP!</p>
+          </div>
+        </div>
+        <button class="btn-new-goal" (click)="showCreateModal = true">
+          <i class="ti ti-plus"></i>Criar nova meta
+        </button>
+
+        <app-goal-create
+          *ngIf="showCreateModal"
+          (created)="onGoalCreated($event)"
+          (close)="showCreateModal = false"
+        ></app-goal-create>
+      </div>
+      <img
+        src="../img/lumo-happy.png"
+        alt="Personagem Lumo de braços abertos"
+      />
+    </section>
+    <section class="rewards" id="recompensas">
+      <h2 class="title-section">Seu progresso</h2>
+      <div class="container_wrapper">
+        <div class="level_progress_container">
+          <h3>Nível Atual</h3>
+          <div class="container_info_level">
+            <div class="number_level">
+              <span>{{ user?.level ?? 0 }}</span>
+            </div>
+            <div class="progress_level_container">
+              <p>Nível {{ user?.level ?? 0 }}</p>
+              <div class="progress-bar-level">
+                <div
+                  class="progress-level"
+                  [style.width.%]="levelProgressPercent"
+                ></div>
+              </div>
+              <p>{{ user?.xp ?? 0 }}/{{ (user?.level ?? 1) * 1000 }} XP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="goals" id="metas">
+      <div class="header-goals">
+        <h2 class="title-section">Suas metas em andamento</h2>
+        <select name="" id="">
+          <option value="todas">Todas suas metas</option>
+          <option value="saude">Mais próximas do prazo</option>
+          <option value="estudos">Maior recompensa</option>
+        </select>
+      </div>
+      <div class="goals-wrapper">
+        <button
+          class="arrow left"
+          (click)="scrollLeft()"
+          [hidden]="totalGoalsCount <= 4"
+        >
+          &#10094;
+        </button>
+        <div class="container-goals">
+          <app-goal-card
+            *ngFor="
+              let goal of personalGoals.concat(groupGoals);
+              trackBy: trackByGoalId
+            "
+            [goal]="goal"
+            [isGroupGoal]="goal.ownerType === 'group'"
+            (complete)="onCompleteToday($event)"
+          >
+          </app-goal-card>
+        </div>
+        <button
+          class="arrow right"
+          (click)="scrollRight()"
+          [hidden]="totalGoalsCount <= 4"
+        >
+          &#10095;
+        </button>
+      </div>
+    </section>
+    <section class="groups" id="grupos">
+      <h2 class="title-section">Grupos e Desafios</h2>
+      <div class="container-group">
+        <div class="header-groups">
+          <h3>Meus grupos ativos</h3>
+          <a href="groups.html">Ver todos os grupos</a>
+        </div>
+        <div class="wrapper-group">
+          <h4 id="nome-grupo">Fitness Squad</h4>
+          <div class="progress-bar-group">
+            <div class="progress-group" style="width: 70"></div>
+          </div>
+          <div class="card-goals-group">
+            <app-goal-card
+              *ngFor="
+                let goal of personalGoals.concat(groupGoals);
+                trackBy: trackByGoalId
+              "
+              [goal]="goal"
+              [isGroupGoal]="goal.ownerType === 'group'"
+              (complete)="onCompleteToday($event)"
+            >
+            </app-goal-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
