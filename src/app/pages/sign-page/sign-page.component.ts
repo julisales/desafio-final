@@ -77,68 +77,54 @@ export class SignComponent implements OnInit, OnDestroy {
     this.serverError = null;
     this.activeTab = tab;
   }
+onLogin() {
+  this.serverError = null;
 
-  onLogin() {
-    this.serverError = null;
-
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
-
-    const payload = this.loginForm.value;
-    this.loading = true;
-
-    this.authService
-      .login(payload.email, payload.password)
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => (this.loading = false)),
-        catchError((err) => {
-          // exibe erro simples; ajuste conforme formato do seu backend
-          this.serverError = err?.message ?? 'Erro ao realizar login.';
-          return throwError(() => err);
-        })
-      )
-      .subscribe({
-        next: (res) => {
-          // supondo que o serviço retorne algo útil (token, user, etc)
-          // redirecione para a home/dashboard
-          this.router.navigate(['/main-page']);
-        },
-      });
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const { email, password } = this.loginForm.value;
+  this.loading = true;
+
+  this.authService
+    .login(email, password)
+    .pipe(takeUntil(this.destroy$), finalize(() => (this.loading = false)))
+    .subscribe({
+      next: () => {
+        this.router.navigate(['/main-page']);
+      },
+      error: (err) => {
+        // exibe mensagem amigável
+        this.serverError = err?.message ?? 'Email ou senha inválidos.';
+      },
+    });
+}
 
   onRegister() {
-    this.serverError = null;
-
-    if (this.registerForm.invalid) {
-      // se o erro for mismatch, marcar campos para mostrar mensagem
-      this.registerForm.markAllAsTouched();
-      return;
-    }
-
-    const { name, email, password } = this.registerForm.value;
-    this.loading = true;
-
-    this.authService
-      .register(name, email, password)
-      .pipe(
-        takeUntil(this.destroy$),
-        finalize(() => (this.loading = false)),
-        catchError((err) => {
-          this.serverError = err?.message ?? 'Erro ao criar conta.';
-          return throwError(() => err);
-        })
-      )
-      .subscribe({
-        next: (res) => {
-          // após registro, você pode logar automaticamente ou forçar o login
-          // Ex: redireciona para pagina de verificação ou dashboard
-          this.router.navigate(['/welcome']);
-        },
-      });
+  this.serverError = null;
+  if (this.registerForm.invalid) {
+    this.registerForm.markAllAsTouched();
+    return;
   }
+
+  const { name, email, password } = this.registerForm.value;
+  this.loading = true;
+
+  this.authService
+    .register(name, email, password)
+    .pipe(takeUntil(this.destroy$), finalize(() => (this.loading = false)))
+    .subscribe({
+      next: () => {
+        this.router.navigate(['/main-page']);
+      },
+      error: (err) => {
+        this.serverError = err?.message ?? 'Erro ao criar conta.';
+      },
+    });
+}
+
 
   // helper para template (opcional)
   fieldInvalid(form: FormGroup, field: string) {
@@ -153,7 +139,7 @@ export class SignComponent implements OnInit, OnDestroy {
 
   openPrivacyPolicy(event: Event) {
   event.preventDefault();
-  // abra o modal / popup / nav que você quiser
+
   console.log("Abrindo política de privacidade...");
 }
 
