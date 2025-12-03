@@ -12,4 +12,5 @@ export interface Goal {
   periodicity: 'daily' | 'weekly' | 'monthly' | 'once'; // 'once' para metas únicas
   completedAt?: string; // Adicione esta linha - ISO string para data de conclusão total
   shared?: boolean; // Adicione esta linha - se já foi compartilhado
+  createdAt?: string; // <-- nova propriedade (ISO string)
 }

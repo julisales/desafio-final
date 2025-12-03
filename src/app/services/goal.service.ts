@@ -10,7 +10,7 @@ import { User } from '../models/user.model';
 @Injectable({ providedIn: 'root' })
 export class GoalService {
   private STORAGE_KEY = 'goals';
-  private XP_PER_LEVEL = 1000; // ajuste se quiser curva diferente
+  private XP_PER_LEVEL = 1000; 
 
   constructor(
     private storage: StorageService,
