@@ -6,6 +6,8 @@ export interface User {
   xp: number;
   level: number;
   streak: number; // sequência diária
+  lastStreakDate?: string; // nova propriedade: data da última atualização de streak (YYYY-MM-DD)
   goalsIds: string[]; // metas pessoais
   groupsIds: string[]; // grupos que participa
+  redeemedRewards: string[];
 }

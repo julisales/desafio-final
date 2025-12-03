@@ -1,0 +1,365 @@
+main {
+    padding: 0 60px;
+}
+
+header {
+    padding: 0 60px 30px 60px;
+}
+
+.container-header {
+    background-color: var(--background-element);
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+}
+
+.container-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.container-header p {
+    font-size: 1.5rem;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+.info-xp {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    width: 200px;
+    border-radius: 12px;
+    padding: 16px;
+    color: var(--background-color);
+}
+
+.info-xp i {
+    font-size: 3rem;
+}
+
+.text-xp span {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.text-xp p {
+    font-size: 1.8rem;
+    font-weight: 600;
+    opacity: 1;
+}
+
+.container-rewards {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.card-reward {
+    background-color: var(--background-element);
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    padding: 20px;
+    width: calc((100% / 3) - 40px);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    height: auto;
+}
+
+.card-reward .header-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-reward h3 {
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.card-reward p {
+    color: var(--text-color-light);
+    font-size: 1.2rem;
+}
+
+.card-reward .header-card span {
+    background-color: var(--primary-color);
+    color: var(--background-element);
+    padding: 8px;
+    border-radius: 18px;
+    font-weight: 600;
+}
+
+.card-reward .header-card img {
+   width: 75px;
+   height: 75px;
+   border-radius: 8px;
+}
+
+.card-reward button {
+    margin-top: auto;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--background-element);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card-reward button:hover {
+   box-shadow: 0 0 20px var(--shadow-yellow);
+   transform: translateY(-2px);
+}
+
+.btn-back {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+.btn-back:hover {
+    color: var(--white);
+}
+
+/* ============ ESTILOS ADICIONAIS ============ */
+
+/* Estados do Botão */
+.btn-redeem:disabled:not(.redeemed) {
+  background-color: var(--text-color-light) !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-redeem.redeemed {
+  background-color: #10b981 !important;
+  cursor: default;
+}
+
+.btn-redeem.redeemed:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Status das Recompensas */
+.redeemed-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid #10b981;
+  border-radius: 10px;
+  color: #10b981;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.redeemed-info i {
+  font-size: 16px;
+}
+
+.xp-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 1px solid #f59e0b;
+  border-radius: 10px;
+  color: #f59e0b;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.xp-warning i {
+  font-size: 16px;
+}
+
+/* Animações de Confetti */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  top: -20px;
+  animation: fall linear forwards;
+  border-radius: 5px;
+}
+
+.confetti:nth-child(1) {
+  left: 10%;
+  background: #ff6b6b;
+  animation-duration: 2s;
+  animation-delay: 0s;
+}
+.confetti:nth-child(2) {
+  left: 30%;
+  background: #4ecdc4;
+  animation-duration: 2.2s;
+  animation-delay: 0.2s;
+}
+.confetti:nth-child(3) {
+  left: 50%;
+  background: #ffd166;
+  animation-duration: 1.8s;
+  animation-delay: 0.4s;
+}
+.confetti:nth-child(4) {
+  left: 70%;
+  background: #06d6a0;
+  animation-duration: 2.1s;
+  animation-delay: 0.1s;
+}
+.confetti:nth-child(5) {
+  left: 90%;
+  background: #118ab2;
+  animation-duration: 1.9s;
+  animation-delay: 0.3s;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Mensagem de Sucesso */
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--background-element);
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  animation: slideIn 0.3s ease;
+  max-width: 400px;
+  color: var(--white);
+}
+
+.success-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.success-content i {
+  color: #10b981;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.success-content p {
+  margin: 0;
+  font-size: 14px;
+  white-space: pre-line;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Ajustes Responsivos Adicionais */
+@media (max-width: 1024px) {
+  .container-rewards {
+    gap: 20px;
+  }
+  
+  .card-reward {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .container-rewards {
+    flex-direction: column;
+  }
+  
+  .card-reward {
+    width: 100%;
+  }
+  
+  .success-message {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+}
+
+/* Overlay para o confetti (opcional) */
+.confetti-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Pulso para destacar XP */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse-animation {
+  animation: pulse 0.5s ease 2;
+}

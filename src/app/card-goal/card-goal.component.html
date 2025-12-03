@@ -1,30 +1,68 @@
 <!-- src/app/card-goal/card-goal.component.html -->
-<div class="card-goal" [class.group]="isGroupGoal" [attr.aria-label]="goal?.title">
+<div
+  *ngIf="goal as g"
+  class="card-goal"
+  [class.group]="isGroupGoal"
+  [attr.aria-label]="g.title"
+>
   <div class="header-card-goal">
-    <h3>{{ goal.title }}</h3>
-    <span>{{ goal.category }}</span>
+    <h3>{{ g.title }}</h3>
+    <span>{{ g.category }}</span>
   </div>
 
-  <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="progressPercent" aria-valuemin="0" aria-valuemax="100">
+  <div
+    class="progress-bar"
+    role="progressbar"
+    [attr.aria-valuenow]="progressPercent"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
     <div class="progress" [style.width.%]="progressPercent"></div>
   </div>
 
-  <p>{{ goal.daysCompleted }}/{{ goal.daysTotal }} dias</p>
+  <p>{{ g.daysCompleted }}/{{ g.daysTotal }} dias</p>
 
   <div class="container-info">
-    <p class="xp"><i class="ti ti-star-filled" aria-hidden="true"></i>+{{ goal.rewardXp }} XP</p>
-    <p><i class="ti ti-calendar" aria-hidden="true"></i>{{ daysRemaining }} dias restantes</p>
+    <p class="xp">
+      <i class="ti ti-star-filled" aria-hidden="true"></i>+{{ g.rewardXp }} XP
+    </p>
+
+    <p>
+      <i class="ti ti-calendar" aria-hidden="true"></i>
+      {{ daysRemaining }} dias restantes
+    </p>
   </div>
 
   <div class="check">
+    <!-- src/app/card-goal/card-goal.component.html -->
     <button
       class="btn-complete"
       (click)="onCompleteClick()"
-      [disabled]="disabled || completing || isFullyCompleted"
-      [attr.aria-disabled]="disabled || completing || isFullyCompleted"
-      title="Concluir hoje"
+      [disabled]="
+        disabled || completing || !canCompleteToday || isFullyCompleted
+      "
+      [attr.aria-disabled]="
+        disabled || completing || !canCompleteToday || isFullyCompleted
+      "
+      [attr.title]="getButtonTitle()"
     >
-      {{ isFullyCompleted ? 'Concluída' : (completing ? 'Processando...' : 'Concluir hoje') }}
+      <!-- 1) Meta finalizada para sempre -->
+      <span *ngIf="isFullyCompleted">Concluída</span>
+
+      <!-- 2) Está processando -->
+      <span *ngIf="!isFullyCompleted && completing">Processando...</span>
+
+      <!-- 3) Já concluiu no período atual -->
+      <span
+        *ngIf="!isFullyCompleted && !completing && alreadyCompletedThisPeriod"
+      >
+        {{ getCompletedMessage() }}
+      </span>
+
+      <!-- 4) Pode concluir agora -->
+      <span *ngIf="!isFullyCompleted && !completing && canCompleteToday">
+        Concluir hoje
+      </span>
     </button>
   </div>
 </div>

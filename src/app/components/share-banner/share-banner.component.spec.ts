@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SignComponent } from './sign-page.component';
 
-describe('SignComponent', () => {
-  let component: SignComponent;
-  let fixture: ComponentFixture<SignComponent>;
+import { ShareBannerComponent } from './share-banner.component';
+
+describe('ShareBannerComponent', () => {
+  let component: ShareBannerComponent;
+  let fixture: ComponentFixture<ShareBannerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignComponent]
+      imports: [ShareBannerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SignComponent);
+    fixture = TestBed.createComponent(ShareBannerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

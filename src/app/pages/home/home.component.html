@@ -92,15 +92,50 @@
       <p class="workflow__description" data-aos="fade-up" data-aos-delay="150">
         Em 4 passos simples, você transforma suas metas em realidade
       </p>
-      <div class="steps__container">
-        <app-step-card
-          *ngFor="let s of steps"
-          [number]="s.number"
-          [title]="s.title"
-          [description]="s.description"
-          [delay]="s.delay"
+
+      <div class="carousel-container" data-aos="fade-up" data-aos-delay="300">
+        <!-- Botão anterior -->
+        <button
+          class="carousel-button prev"
+          (click)="prevStep()"
+          aria-label="Passo anterior"
         >
-        </app-step-card>
+          <i class="ti ti-chevron-left"></i>
+        </button>
+
+        <!-- Container do card atual -->
+        <div class="carousel-slide">
+          <app-step-card
+            [ngClass]="{ active: true }"
+            [number]="steps[currentStepIndex].number"
+            [title]="steps[currentStepIndex].title"
+            [description]="steps[currentStepIndex].description"
+            [delay]="0"
+          >
+          </app-step-card>
+        </div>
+
+        <!-- Botão próximo -->
+        <button
+          class="carousel-button next"
+          (click)="nextStep()"
+          aria-label="Próximo passo"
+        >
+          <i class="ti ti-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Indicadores (bolinhas) -->
+      <div class="carousel-indicators" data-aos="fade-up" data-aos-delay="450">
+        <button
+          *ngFor="let step of steps; let i = index"
+          class="indicator"
+          [class.active]="i === currentStepIndex"
+          (click)="goToStep(i)"
+          [attr.aria-label]="'Ir para passo ' + (i + 1)"
+        >
+          <span class="sr-only">Passo {{ i + 1 }}</span>
+        </button>
       </div>
     </div>
   </section>

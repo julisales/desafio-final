@@ -1,6 +1,12 @@
 // src/app/goal-create/goal-create.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { GoalService } from '../services/goal.service';
 import { AuthService } from '../services/auth.service';
 import { Goal } from '../models/goal.model';
@@ -10,10 +16,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-goal-create',
   imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './goal-create.component.html',
-  styleUrls: ['./goal-create.component.css'] // ou .scss
+  styleUrls: ['./goal-create.component.css'], // ou .scss
 })
 export class GoalCreateComponent implements OnInit {
- @Output() created = new EventEmitter<Goal>();
+  @Output() created = new EventEmitter<Goal>();
   @Output() close = new EventEmitter<void>();
 
   form!: FormGroup;
@@ -37,32 +43,41 @@ export class GoalCreateComponent implements OnInit {
     // estabelece a menor data como hoje (YYYY-MM-DD)
     this.minDate = new Date().toISOString().split('T')[0];
 
-    this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(60)]],
-      description: [''],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      frequency: ['', Validators.required],
-      category: ['', Validators.required],
-      priority: ['', Validators.required]
-    }, { updateOn: 'blur' });
+    this.form = this.fb.group(
+      {
+        title: ['', [Validators.required, Validators.maxLength(60)]],
+        description: [''],
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        frequency: ['', Validators.required],
+        category: ['', Validators.required],
+        priority: ['', Validators.required],
+      },
+      { updateOn: 'blur' }
+    );
   }
 
   private daysBetween(startIso: string, endIso: string): number {
     const start = new Date(startIso);
     const end = new Date(endIso);
-    start.setHours(0,0,0,0);
-    end.setHours(0,0,0,0);
-    const diff = Math.round((end.getTime() - start.getTime()) / (1000*60*60*24));
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    const diff = Math.round(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+    );
     return Math.max(0, diff) + 1;
   }
 
   private xpForPriority(priority: string): number {
     switch ((priority || '').toLowerCase()) {
-      case 'alta': return 300;
-      case 'média': return 180;
-      case 'baixa': return 100;
-      default: return 100;
+      case 'alta':
+        return 300;
+      case 'média':
+        return 180;
+      case 'baixa':
+        return 100;
+      default:
+        return 100;
     }
   }
 
@@ -82,6 +97,12 @@ export class GoalCreateComponent implements OnInit {
     const v = this.form.value;
     const daysTotal = this.daysBetween(v.startDate, v.endDate) || 30;
 
+    const periodicityMap: Record<string, 'daily' | 'weekly' | 'monthly'> = {
+      Diária: 'daily',
+      Semanal: 'weekly',
+      Mensal: 'monthly',
+    };
+
     const payload: Partial<Goal> = {
       title: v.title,
       category: v.category,
@@ -90,7 +111,8 @@ export class GoalCreateComponent implements OnInit {
       rewardXp: this.xpForPriority(v.priority),
       dueDate: v.endDate,
       ownerType: 'user',
-      ownerId: user.id
+      ownerId: user.id,
+      periodicity: periodicityMap[v.frequency], // <- aqui!
     };
 
     const created = this.goalService.createForUser(user.id, payload);

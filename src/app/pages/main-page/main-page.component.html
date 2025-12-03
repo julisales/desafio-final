@@ -25,7 +25,7 @@
           <span>{{ user?.streak ?? 0 }}</span>
         </div>
         <div class="container_user">
-          <a href="rewards.html" title="Loja de Recompensas">
+          <a href="/rewards-page" title="Loja de Recompensas">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 640 640"
@@ -109,26 +109,25 @@
     <section class="goals" id="metas">
       <div class="header-goals">
         <h2 class="title-section">Suas metas em andamento</h2>
-        <select name="" id="">
-          <option value="todas">Todas suas metas</option>
-          <option value="saude">Mais próximas do prazo</option>
-          <option value="estudos">Maior recompensa</option>
+        <select [(ngModel)]="selectedFilter" (change)="filterGoals()">
+          <option value="all">Metas ativas</option>
+          <option value="completed">Concluídas (100%)</option>
+          <option value="nearest">Mais próximas do prazo</option>
+          <option value="highest">Maior recompensa</option>
         </select>
       </div>
+
       <div class="goals-wrapper">
         <button
           class="arrow left"
           (click)="scrollLeft()"
-          [hidden]="totalGoalsCount <= 4"
+          [hidden]="filteredGoals.length <= 4"
         >
           &#10094;
         </button>
         <div class="container-goals">
           <app-goal-card
-            *ngFor="
-              let goal of personalGoals.concat(groupGoals);
-              trackBy: trackByGoalId
-            "
+            *ngFor="let goal of filteredGoals; trackBy: trackByGoalId"
             [goal]="goal"
             [isGroupGoal]="goal.ownerType === 'group'"
             (complete)="onCompleteToday($event)"
@@ -138,38 +137,37 @@
         <button
           class="arrow right"
           (click)="scrollRight()"
-          [hidden]="totalGoalsCount <= 4"
+          [hidden]="filteredGoals.length <= 4"
         >
           &#10095;
         </button>
       </div>
     </section>
-    <section class="groups" id="grupos">
-      <h2 class="title-section">Grupos e Desafios</h2>
-      <div class="container-group">
-        <div class="header-groups">
-          <h3>Meus grupos ativos</h3>
-          <a href="groups.html">Ver todos os grupos</a>
+  </main>
+
+  <!-- Share modal - aparece apenas quando a meta ficou 100% (controlado no TS) -->
+  <div class="share-modal" *ngIf="showShareModal">
+    <div class="share-modal__backdrop" (click)="showShareModal = false"></div>
+    <div class="share-modal__card" role="dialog" aria-modal="true">
+      <header>
+        <h3>Compartilhe sua conquista</h3>
+        <button class="btn-close" (click)="showShareModal = false">✕</button>
+      </header>
+
+      <div class="share-modal__body">
+        <div class="share-preview">
+          <ng-container *ngIf="shareGenerating">
+            <p>Gerando imagem…</p>
+          </ng-container>
+          <img *ngIf="shareImageDataUrl" [src]="shareImageDataUrl" alt="Banner de conquista" />
         </div>
-        <div class="wrapper-group">
-          <h4 id="nome-grupo">Fitness Squad</h4>
-          <div class="progress-bar-group">
-            <div class="progress-group" style="width: 70"></div>
-          </div>
-          <div class="card-goals-group">
-            <app-goal-card
-              *ngFor="
-                let goal of personalGoals.concat(groupGoals);
-                trackBy: trackByGoalId
-              "
-              [goal]="goal"
-              [isGroupGoal]="goal.ownerType === 'group'"
-              (complete)="onCompleteToday($event)"
-            >
-            </app-goal-card>
-          </div>
+
+        <div class="share-actions">
+          <button class="btn" (click)="shareViaNavigator()" [disabled]="!shareImageDataUrl">Compartilhar</button>
+          <button class="btn" (click)="downloadShareImage()" [disabled]="!shareImageDataUrl">Baixar imagem</button>
+          <button class="btn btn-ghost" (click)="showShareModal = false">Fechar</button>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 </div>

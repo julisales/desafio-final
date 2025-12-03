@@ -12,6 +12,8 @@ import { StepCardComponent } from '../../components/step-card/step-card.componen
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  currentStepIndex = 0;
+  
   ngOnInit(): void {
     AOS.init({
       duration: 1000,
@@ -22,11 +24,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Recarrega o AOS quando a view é inicializada
     setTimeout(() => {
       AOS.refresh();
     }, 500);
+    
+    // Opcional: auto-play do carrossel
+    // this.startAutoPlay();
   }
+
+  nextStep() {
+    this.currentStepIndex = (this.currentStepIndex + 1) % this.steps.length;
+  }
+
+  prevStep() {
+    this.currentStepIndex = (this.currentStepIndex - 1 + this.steps.length) % this.steps.length;
+  }
+
+  goToStep(index: number) {
+    this.currentStepIndex = index;
+  }
+
+  // Opcional: auto-play
+  // startAutoPlay() {
+  //   setInterval(() => {
+  //     this.nextStep();
+  //   }, 5000);
+  // }
 
   cards = [
     {
@@ -51,10 +74,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       delay: 200,
     },
     {
-      icon: 'ti ti-users',
-      title: 'Grupos e Desafios',
+      icon: 'ti ti-chart-bar',
+      title: 'Monitore seu progresso',
       description:
-        'Convide amigos, compartilhe metas e participe de desafios conjuntos.',
+        'Monitore seu nível atual, XP acumulado e sequência de dias para ver seu crescimento constante.',
       delay: 300,
     },
     {

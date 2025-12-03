@@ -29,7 +29,8 @@ export class AuthService {
       level: 1,
       streak: 0,
       goalsIds: [],
-      groupsIds: []
+      groupsIds: [],
+      redeemedRewards: []
     };
     users.push(user);
     this.storage.set('users', users);

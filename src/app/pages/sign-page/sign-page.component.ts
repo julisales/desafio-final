@@ -18,11 +18,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-sign-page',
   templateUrl: './sign-page.component.html', // seu HTML
-  imports: [
-    CommonModule,
-    ReactiveFormsModule, 
-    FormsModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   styleUrls: ['./sign-page.component.css'], // opcional
 })
 export class SignComponent implements OnInit, OnDestroy {
@@ -52,12 +48,14 @@ export class SignComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
     });
 
+    // Register form: adiciona 'consent' obrigatório
     this.registerForm = this.fb.group(
       {
         name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
+        consent: [false, [Validators.requiredTrue]], // <- obrigatório
       },
       { validators: this.passwordsMatchValidator }
     );
@@ -152,4 +150,11 @@ export class SignComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  openPrivacyPolicy(event: Event) {
+  event.preventDefault();
+  // abra o modal / popup / nav que você quiser
+  console.log("Abrindo política de privacidade...");
+}
+
 }

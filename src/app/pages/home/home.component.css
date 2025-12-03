@@ -511,3 +511,138 @@
         transform: translateY(-15px);
     }
 }
+
+/* Estilos do carrossel */
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  min-height: 300px;
+}
+
+.carousel-slide {
+  flex: 1;
+  max-width: 500px;
+  transition: transform 0.5s ease;
+}
+
+.carousel-button {
+  background: var(--primary-color);
+  color: var(--background-color);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;;
+}
+
+.carousel-button:hover {
+  background: var(--primary-color);
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px var(--shadow-yellow);
+  transition: var(--transition);
+}
+
+.carousel-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  order: 2;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator.active {
+  background: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.indicator:hover:not(.active) {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Animação de entrada do card */
+.carousel-slide app-step-card {
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .carousel-container {
+    gap: 1rem;
+  }
+  
+  .carousel-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .carousel-slide {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .carousel-button.prev,
+  .carousel-button.next {
+    position: static;
+    transform: none;
+  }
+  
+  .carousel-indicators {
+    margin-top: 1.5rem;
+  }
+}

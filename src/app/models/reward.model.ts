@@ -1,6 +1,9 @@
+
 export interface Reward {
   id: string;
   title: string;
+  description: string;
   xpCost: number;
-  description?: string;
+  imageUrl: string;
+  redeemed: boolean;
 }
