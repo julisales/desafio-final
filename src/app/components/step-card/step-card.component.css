@@ -48,3 +48,27 @@
     color: var(--sucess-color);
     font-size: 3rem;
 }
+
+@media (max-width: 767px) {
+    .step__card {
+        width: 100%;
+        padding: 16px;
+        justify-content: center;
+    }
+
+    .step__title {
+        font-size: 1.5rem;
+    }
+
+    .step__description {
+        font-size: 1rem;
+    }
+
+    .step__number {
+        font-size: 2.5rem;
+    }
+
+    .step__number i {
+        font-size: 2.5rem;
+    }
+}

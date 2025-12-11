@@ -684,3 +684,376 @@
   z-index: 2500;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
+
+/* Para telas até 1024px (tablets landscape) */
+@media screen and (max-width: 1024px) {
+  .banner {
+    padding: 40px;
+    margin-top: 45px;
+  }
+  
+  .content h1 {
+    font-size: 2.8rem;
+  }
+  
+  .content p {
+    font-size: 1.3rem;
+  }
+  
+  .container_info_sequence {
+    padding: 25px 18px;
+  }
+  
+  .container_info_sequence p:first-child {
+    font-size: 1.3rem;
+  }
+  
+  .container_info_sequence p:last-child {
+    font-size: 1.1rem;
+  }
+  
+  .container_info_sequence i {
+    font-size: 40px;
+  }
+  
+  .banner button {
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+  
+  .banner img {
+    max-width: 300px;
+  }
+
+   .header {
+    height: 90px;
+  }
+  
+  .container__header {
+    padding: 15px 30px;
+  }
+  
+  .container_brand_nav {
+    gap: 25px;
+  }
+  
+  .brand__logo {
+    width: 35px;
+  }
+  
+  .brand__name {
+    font-size: 2.2rem;
+  }
+  
+  .header__nav ul {
+    gap: 35px;
+  }
+  
+  .header__nav ul a {
+    font-size: 1.2rem;
+  }
+  
+  .header__actions {
+    gap: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .container_level {
+    padding: 5px 7px;
+  }
+  
+  .container_level span:first-child {
+    font-size: 1.1rem;
+  }
+  
+  .container_level span:last-child {
+    font-size: 0.85rem;
+  }
+  
+  .container_sequence i {
+    font-size: 22px;
+  }
+  
+  .container_user i {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+  
+  .container_user svg {
+    width: 36px;
+  }
+
+  .header-goals {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .title-section {
+    font-size: 1.8rem;
+  }
+  
+  .goals-wrapper {
+    position: relative;
+    padding: 0 5px;
+  }
+  
+  .container-goals {
+    gap: 20px;
+    padding: 10px 5px;
+  }
+  
+  .card-goal {
+    min-width: calc(50% - 20px);
+    /* 2 cards por linha */
+    gap: 12px;
+    padding: 16px;
+    border-radius: 10px;
+  }
+  
+  .header-card-goal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .header-card-goal h3 {
+    font-size: 1.2rem;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .header-card-goal span {
+    align-self: flex-start;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+  
+  .progress-bar {
+    height: 10px;
+  }
+  
+  .check {
+    padding-top: 12px;
+  }
+  
+  .check button {
+    padding: 8px;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  
+  /* Esconder setas em mobile quando há scroll */
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+  }
+  
+  .arrow.left {
+    left: 0;
+  }
+  
+  .arrow.right {
+    right: 0;
+  }
+  
+  /* Mostrar sempre as setas em mobile, mesmo com poucos cards */
+  .arrow {
+    display: flex !important;
+  }
+}
+
+/* Para telas até 767px (tablets portrait e smartphones) */
+@media screen and (max-width: 767px) {
+  .banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 40px;
+    gap: 30px;
+  }
+  
+  .banner .content {
+    align-items: center;
+  }
+  
+  .content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .content p {
+    font-size: 1.1rem;
+  }
+  
+  .container_info_sequence {
+    padding: 20px 15px;
+    margin: 15px 0;
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .container_info_sequence p:first-child {
+    font-size: 1.2rem;
+  }
+  
+  .container_info_sequence p:last-child {
+    font-size: 1rem;
+  }
+  
+  .container_info_sequence i {
+    font-size: 35px;
+  }
+  
+  .banner button {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    align-self: center;
+  }
+  
+  .banner img {
+    max-width: 250px;
+    order: -1; 
+  }
+
+  .header {
+    height: 80px;
+    position: relative;
+  }
+  
+  .container__header {
+    padding: 12px 20px;
+  }
+  
+  .brand__name {
+    font-size: 1.8rem;
+  }
+  
+  .brand__logo {
+    width: 30px;
+  }
+  
+  /* Esconde a navegação em mobile */
+  .header__nav {
+    display: none;
+  }
+  
+  .header__actions {
+    gap: 15px;
+  }
+  
+  /* Ajusta containers de status */
+  .container_level,
+  .container_xp,
+  .container_sequence {
+    flex-direction: column;
+    gap: 2px;
+    text-align: center;
+  }
+  
+  .container_level {
+    padding: 4px 6px;
+    min-width: 50px;
+  }
+  
+  .container_level span:first-child {
+    font-size: 1rem;
+  }
+  
+  .container_level span:last-child {
+    font-size: 0.75rem;
+  }
+  
+  .container_xp span,
+  .container_sequence span {
+    font-size: 0.9rem;
+  }
+  
+  .container_sequence i {
+    font-size: 20px;
+  }
+  
+  .container_user i {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+  
+  .container_user svg {
+    width: 32px;
+  }
+  .user-menu {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 180px;
+  }
+
+  
+}
+
+/* Para telas muito pequenas (smartphones pequenos) */
+@media screen and (max-width: 480px) {
+  .banner {
+    padding: 25px 15px;
+    margin-top: 35px;
+  }
+  
+  .content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .content p {
+    font-size: 1rem;
+  }
+  
+  .container_info_sequence {
+    padding: 18px 12px;
+  }
+  
+  .container_info_sequence p:first-child {
+    font-size: 1.1rem;
+  }
+  
+  .container_info_sequence p:last-child {
+    font-size: 0.9rem;
+  }
+  
+  .banner button {
+    padding: 10px 18px;
+    font-size: 1rem;
+  }
+  
+  .banner img {
+    max-width: 200px;
+  }
+
+  .brand__name {
+    font-size: 1.4rem;
+  }
+  
+  .brand__logo {
+    width: 22px;
+  }
+  
+  .header__actions {
+    gap: 8px;
+  }
+  
+  .container_level {
+    display: none;
+  }
+}

@@ -324,6 +324,10 @@ header {
   .container-rewards {
     flex-direction: column;
   }
+
+  .container-header{
+    flex-direction: column;
+  }
   
   .card-reward {
     width: 100%;
