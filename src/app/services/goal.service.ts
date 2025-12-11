@@ -10,12 +10,9 @@ import { User } from '../models/user.model';
 @Injectable({ providedIn: 'root' })
 export class GoalService {
   private STORAGE_KEY = 'goals';
-  private XP_PER_LEVEL = 1000; 
+  private XP_PER_LEVEL = 1000;
 
-  constructor(
-    private storage: StorageService,
-    private auth: AuthService
-  ) {}
+  constructor(private storage: StorageService, private auth: AuthService) {}
 
   getAll(): Goal[] {
     return this.storage.get<Goal[]>(this.STORAGE_KEY) ?? [];
@@ -83,7 +80,19 @@ export class GoalService {
     const g = { ...arr[idx] };
 
     const now = new Date();
-    const todayIsoDate = now.toISOString().split('T')[0]; // YYYY-MM-DD
+
+    // --- datas em YYYY-MM-DD no fuso local (evita problemas de UTC) ---
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const todayLocal = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
+      now.getDate()
+    )}`;
+
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    const yesterdayLocal = `${yesterday.getFullYear()}-${pad(
+      yesterday.getMonth() + 1
+    )}-${pad(yesterday.getDate())}`;
+    // ---------------------------------------------------------------
 
     let canComplete = false;
 
@@ -93,7 +102,11 @@ export class GoalService {
       const last = new Date(g.lastCompletedDate);
       switch (g.periodicity) {
         case 'daily':
-          canComplete = last.toDateString() !== now.toDateString();
+          // compara apenas a parte YYYY-MM-DD no fuso local para ver se já completou hoje
+          const lastLocal = `${last.getFullYear()}-${pad(
+            last.getMonth() + 1
+          )}-${pad(last.getDate())}`;
+          canComplete = lastLocal !== todayLocal;
           break;
         case 'weekly':
           canComplete = getWeekNumber(last) !== getWeekNumber(now);
@@ -131,17 +144,18 @@ export class GoalService {
 
       // Streak diário (usa user.lastStreakDate conforme seu model)
       if (g.periodicity === 'daily') {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayIso = yesterday.toISOString().split('T')[0];
+        // usa datas locais (YYYY-MM-DD)
+        const lastStreak = user.lastStreakDate ?? '';
 
-        // se lastStreakDate é ontem, incrementa; senão reinicia para 1
-        if ((user.lastStreakDate ?? '') === yesterdayIso) {
+        if (lastStreak === todayLocal) {
+          // Já atualizou a streak hoje — não altera (mas já deu XP acima)
+        } else if (lastStreak === yesterdayLocal) {
           user.streak = (user.streak ?? 0) + 1;
+          user.lastStreakDate = todayLocal;
         } else {
           user.streak = 1;
+          user.lastStreakDate = todayLocal;
         }
-        user.lastStreakDate = todayIsoDate;
       }
 
       // persiste usuário

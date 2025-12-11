@@ -8,9 +8,10 @@ export interface Goal {
   daysCompleted: number;
   rewardXp: number;
   dueDate?: string;
-  lastCompletedDate?: string; // ISO para controle diário/semana/mês
-  periodicity: 'daily' | 'weekly' | 'monthly' | 'once'; // 'once' para metas únicas
-  completedAt?: string; // Adicione esta linha - ISO string para data de conclusão total
-  shared?: boolean; // Adicione esta linha - se já foi compartilhado
-  createdAt?: string; // <-- nova propriedade (ISO string)
+  startDate?: string;        // nova: YYYY-MM-DD ou ISO string
+  lastCompletedDate?: string;
+  periodicity: 'daily' | 'weekly' | 'monthly' | 'once';
+  completedAt?: string;      // ISO string quando a meta é totalmente concluída
+  shared?: boolean;          // se a meta já foi compartilhada (stories etc.)
+  createdAt?: string;        // ISO string
 }

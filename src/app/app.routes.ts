@@ -5,14 +5,26 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { RewardsPageComponent } from './pages/rewards-page/rewards-page.component';
+import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'sign', component: SignComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'main-page', component: MainPageComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'rewards-page', component: RewardsPageComponent },
+
+  // ROTAS PROTEGIDAS
+  {
+    path: 'main-page',
+    component: MainPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'rewards-page',
+    component: RewardsPageComponent,
+    canActivate: [AuthGuard],
+  },
+
   { path: '**', redirectTo: 'home' },
 ];
