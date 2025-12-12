@@ -233,5 +233,34 @@
 }
 
 
-@media (max-width: 767px) {
+@media (max-width: 480px) {
+  .sign {
+    padding: 12px;
+  }
+  .box-form {
+    padding: 18px;
+  }
+  .header h2 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+ .form-group input {
+  font-size: 1rem;
+ }
+
+  div.tabs .tab {
+    padding: 10px 0;
+  }
+
+  form .btn {
+    font-size: 1rem;
+  }
+
+  a.back-link {
+    font-size: 1rem;
+  }
 }
