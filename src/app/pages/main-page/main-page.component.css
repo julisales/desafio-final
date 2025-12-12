@@ -1007,6 +1007,9 @@
 
 
 @media screen and (max-width: 480px) {
+  .main {
+    padding: 12px;
+  }
   .banner {
     padding: 25px 15px;
     margin-top: 35px;
@@ -1055,5 +1058,38 @@
   
   .container_level {
     display: none;
+  }
+
+  div.container_xp, div.container_sequence {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .container_user {
+    gap: 0;
+  }
+
+  .number_level {
+    font-size: 2rem;
+    width: 60px;
+    height:60px;
+  }
+
+  .container_info_level {
+    gap: 18px;
+  }
+
+  .container_info_level p {
+    font-size: 0.9rem;
+  }
+
+  .level_progress_container {
+    padding: 20px;
+    gap: 12px;
   }
 }
