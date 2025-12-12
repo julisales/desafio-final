@@ -33,8 +33,7 @@ export class ResetPasswordComponent {
       return;
     }
 
-    // salvar nova senha
-    localStorage.setItem('phocus_user_password', password!);
+        localStorage.setItem('phocus_user_password', password!);
 
     alert('Senha redefinida com sucesso!');
 

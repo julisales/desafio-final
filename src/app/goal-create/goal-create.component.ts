@@ -1,4 +1,3 @@
-// src/app/goal-create/goal-create.component.ts
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -16,8 +15,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-goal-create',
   imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './goal-create.component.html',
-  styleUrls: ['./goal-create.component.css'], // ou .scss
-})
+  styleUrls: ['./goal-create.component.css'], })
 export class GoalCreateComponent implements OnInit {
   @Output() created = new EventEmitter<Goal>();
   @Output() close = new EventEmitter<void>();
@@ -25,13 +23,11 @@ export class GoalCreateComponent implements OnInit {
   form!: FormGroup;
   submitting = false;
 
-  // bindings para o template
-  frequencies = ['Diária', 'Semanal', 'Mensal'];
+    frequencies = ['Diária', 'Semanal', 'Mensal'];
   priorities = ['Baixa', 'Média', 'Alta'];
   categories = ['Saúde', 'Estudos', 'Bem-estar', 'Trabalho', 'Outros'];
 
-  // <-- define minDate para usar nos inputs date
-  minDate: string = '';
+    minDate: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -40,8 +36,7 @@ export class GoalCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // estabelece a menor data como hoje (YYYY-MM-DD)
-    this.minDate = new Date().toISOString().split('T')[0];
+        this.minDate = new Date().toISOString().split('T')[0];
 
     this.form = this.fb.group(
       {
@@ -112,8 +107,7 @@ export class GoalCreateComponent implements OnInit {
       dueDate: v.endDate,
       ownerType: 'user',
       ownerId: user.id,
-      periodicity: periodicityMap[v.frequency], // <- aqui!
-    };
+      periodicity: periodicityMap[v.frequency],     };
 
     const created = this.goalService.createForUser(user.id, payload);
     this.created.emit(created);

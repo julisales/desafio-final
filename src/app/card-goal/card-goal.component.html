@@ -1,4 +1,3 @@
-<!-- src/app/card-goal/card-goal.component.html -->
 <div
   *ngIf="goal as g"
   class="card-goal"
@@ -34,8 +33,7 @@
   </div>
 
   <div class="check">
-    <!-- src/app/card-goal/card-goal.component.html -->
-    <button
+        <button
       class="btn-complete"
       (click)="onCompleteClick()"
       [disabled]="
@@ -46,21 +44,17 @@
       "
       [attr.title]="getButtonTitle()"
     >
-      <!-- 1) Meta finalizada para sempre -->
-      <span *ngIf="isFullyCompleted">Concluída</span>
+            <span *ngIf="isFullyCompleted">Concluída</span>
 
-      <!-- 2) Está processando -->
-      <span *ngIf="!isFullyCompleted && completing">Processando...</span>
+            <span *ngIf="!isFullyCompleted && completing">Processando...</span>
 
-      <!-- 3) Já concluiu no período atual -->
-      <span
+            <span
         *ngIf="!isFullyCompleted && !completing && alreadyCompletedThisPeriod"
       >
         {{ getCompletedMessage() }}
       </span>
 
-      <!-- 4) Pode concluir agora -->
-      <span *ngIf="!isFullyCompleted && !completing && canCompleteToday">
+            <span *ngIf="!isFullyCompleted && !completing && canCompleteToday">
         Concluir hoje
       </span>
     </button>

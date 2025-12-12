@@ -14,8 +14,7 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
 
-  // ROTAS PROTEGIDAS
-  {
+    {
     path: 'main-page',
     component: MainPageComponent,
     canActivate: [AuthGuard],

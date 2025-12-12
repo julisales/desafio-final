@@ -140,9 +140,9 @@ header {
     color: var(--white);
 }
 
-/* ============ ESTILOS ADICIONAIS ============ */
 
-/* Estados do Botão */
+
+
 .btn-redeem:disabled:not(.redeemed) {
   background-color: var(--text-color-light) !important;
   cursor: not-allowed;
@@ -161,7 +161,7 @@ header {
   box-shadow: none !important;
 }
 
-/* Status das Recompensas */
+
 .redeemed-info {
   display: flex;
   align-items: center;
@@ -200,7 +200,7 @@ header {
   font-size: 16px;
 }
 
-/* Animações de Confetti */
+
 .confetti-container {
   position: fixed;
   top: 0;
@@ -262,7 +262,7 @@ header {
   }
 }
 
-/* Mensagem de Sucesso */
+
 .success-message {
   position: fixed;
   top: 20px;
@@ -309,7 +309,7 @@ header {
   }
 }
 
-/* Ajustes Responsivos Adicionais */
+
 @media (max-width: 1024px) {
   .container-rewards {
     gap: 20px;
@@ -340,7 +340,7 @@ header {
   }
 }
 
-/* Overlay para o confetti (opcional) */
+
 .confetti-overlay {
   position: fixed;
   top: 0;
@@ -357,7 +357,7 @@ header {
   to { opacity: 1; }
 }
 
-/* Pulso para destacar XP */
+
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }

@@ -37,8 +37,7 @@ export class ForgotPasswordComponent {
     }
   }
 
-  // opcional: gera token simples (não seguro, só protótipo)
-  private makeToken(): string {
+    private makeToken(): string {
     return Math.random().toString(36).slice(2, 10);
   }
 
@@ -57,11 +56,9 @@ export class ForgotPasswordComponent {
       return;
     }
 
-    // cria token e grava (opcional) para simular fluxo de reset
-    const token = this.makeToken();
+        const token = this.makeToken();
     try {
-      // armazena token curto ligado ao email (somente protótipo)
-      localStorage.setItem(this.RESET_KEY_PREFIX + email, JSON.stringify({
+            localStorage.setItem(this.RESET_KEY_PREFIX + email, JSON.stringify({
         token,
         createdAt: new Date().toISOString()
       }));
@@ -69,8 +66,7 @@ export class ForgotPasswordComponent {
       console.warn('Não foi possível salvar token no localStorage', e);
     }
 
-    // Simula envio de e-mail: mostramos um alert com link (apenas protótipo)
-    const simulatedLink = `${location.origin}/reset-password?email=${encodeURIComponent(email)}&token=${token}`;
+        const simulatedLink = `${location.origin}/reset-password?email=${encodeURIComponent(email)}&token=${token}`;
     alert(`Enviamos um link de redefinição para ${email}.`);
 
     this.router.navigate(['/reset-password']); 

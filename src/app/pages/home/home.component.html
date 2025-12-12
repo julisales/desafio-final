@@ -94,8 +94,7 @@
       </p>
 
       <div class="carousel-container" data-aos="fade-up" data-aos-delay="300">
-        <!-- Botão anterior -->
-        <button
+                <button
           class="carousel-button prev"
           (click)="prevStep()"
           aria-label="Passo anterior"
@@ -103,8 +102,7 @@
           <i class="ti ti-chevron-left"></i>
         </button>
 
-        <!-- Container do card atual -->
-        <div class="carousel-slide">
+                <div class="carousel-slide">
           <app-step-card
             [ngClass]="{ active: true }"
             [number]="steps[currentStepIndex].number"
@@ -115,8 +113,7 @@
           </app-step-card>
         </div>
 
-        <!-- Botão próximo -->
-        <button
+                <button
           class="carousel-button next"
           (click)="nextStep()"
           aria-label="Próximo passo"
@@ -125,8 +122,7 @@
         </button>
       </div>
 
-      <!-- Indicadores (bolinhas) -->
-      <div class="carousel-indicators" data-aos="fade-up" data-aos-delay="450">
+            <div class="carousel-indicators" data-aos="fade-up" data-aos-delay="450">
         <button
           *ngFor="let step of steps; let i = index"
           class="indicator"

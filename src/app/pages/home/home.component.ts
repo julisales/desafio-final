@@ -28,9 +28,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       AOS.refresh();
     }, 500);
     
-    // Opcional: auto-play do carrossel
-    // this.startAutoPlay();
-  }
+          }
 
   nextStep() {
     this.currentStepIndex = (this.currentStepIndex + 1) % this.steps.length;
@@ -44,13 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.currentStepIndex = index;
   }
 
-  // Opcional: auto-play
-  // startAutoPlay() {
-  //   setInterval(() => {
-  //     this.nextStep();
-  //   }, 5000);
-  // }
-
+            
   cards = [
     {
       icon: 'ti ti-target',

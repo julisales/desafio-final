@@ -1,4 +1,3 @@
-// src/app/card-goal/card-goal.component.ts
 import {
   Component,
   Input,
@@ -29,42 +28,34 @@ export class CardGoalComponent {
   private lastCheckTime = Date.now();
 
   ngOnInit() {
-    // Ouvir evento de reset
     window.addEventListener('goals-reset', this.handleReset.bind(this));
 
-    // Verificar a cada 30 segundos se mudou o dia
     this.startPeriodicCheck();
   }
 
   private startPeriodicCheck() {
-    // Verificar periodicamente se a meta deve ser resetada
     setInterval(() => {
       this.checkForReset();
-    }, 30000); // A cada 30 segundos
+    }, 30000);
   }
 
   private checkForReset() {
     if (!this.goal) return;
 
     const now = Date.now();
-    // Verificar a cada minuto
     if (now - this.lastCheckTime > 60000) {
       this.lastCheckTime = now;
 
-      // Se antes não podia completar e agora pode, emitir evento
       const previouslyAvailable = this.canCompleteToday;
 
-      // Forçar recálculo
       this.resetCheck.emit();
     }
   }
 
   private handleReset(event: Event) {
-    // Quando receber notificação de reset, forçar recálculo
     this.resetCheck.emit();
   }
 
-  // Método para verificar se está em um novo período
   get isNewPeriod(): boolean {
     if (!this.goal || !this.goal.lastCompletedDate) return true;
 
@@ -106,10 +97,8 @@ export class CardGoalComponent {
   get canCompleteToday(): boolean {
     if (!this.goal) return false;
 
-    // Se já está totalmente concluída, não pode completar
     if (this.isFullyCompleted) return false;
 
-    // Se não tem periodicidade definida, assume 'once'
     const periodicity = this.goal.periodicity || 'once';
 
     try {
@@ -123,10 +112,8 @@ export class CardGoalComponent {
   get alreadyCompletedThisPeriod(): boolean {
     if (!this.goal) return true;
 
-    // Se nunca foi concluída, não está concluída neste período
     if (!this.goal.lastCompletedDate) return false;
 
-    // Verifica se já foi concluída neste período
     return !this.canCompleteToday;
   }
   onCompleteClick() {
@@ -148,7 +135,6 @@ export class CardGoalComponent {
     setTimeout(() => (this.completing = false), 800);
   }
 
-  // src/app/card-goal/card-goal.component.ts
   getButtonTitle(): string {
     if (this.isFullyCompleted) return 'Meta totalmente concluída';
     if (!this.canCompleteToday) {

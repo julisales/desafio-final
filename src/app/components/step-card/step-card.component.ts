@@ -9,12 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./step-card.component.css'],
 })
 export class StepCardComponent {
-  // número do passo (p.ex. '01' ou 1)
-  @Input() number: string | number = '';
+    @Input() number: string | number = '';
   @Input() title = '';
   @Input() description = '';
-  // aceita número ou string (será usado em data-aos-delay)
-  @Input() delay: number | string = 0;
-  // ícone opcional (classe)
-  @Input() iconClass = 'ti ti-circle-check';
+    @Input() delay: number | string = 0;
+    @Input() iconClass = 'ti ti-circle-check';
 }

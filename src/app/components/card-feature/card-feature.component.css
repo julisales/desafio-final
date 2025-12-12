@@ -67,7 +67,7 @@
   color: var(--sucess-color);
 }
 
-/* Para telas até 1024px (tablets landscape) */
+
 @media screen and (max-width: 1024px) {
   .card {
     width: 380px;
@@ -91,7 +91,7 @@
   }
 }
 
-/* Para telas até 767px (tablets portrait) */
+
 @media screen and (max-width: 767px) {
   .card {
     width: 320px;
@@ -121,15 +121,13 @@
   }
 }
 
-/* Para telas até 480px (smartphones) */
+
 @media screen and (max-width: 480px) {
   .card {
     width: 100%;
-    max-width: 100%;
     height: auto;
     min-height: 160px;
     padding: 20px;
-    margin: 0 10px;
     gap: 12px;
   }
 
@@ -149,7 +147,7 @@
     line-height: 1.4;
   }
 
-  /* Se os cards estiverem em um grid/lista */
+  
   .card:not(:last-child) {
     margin-bottom: 15px;
   }

@@ -1,4 +1,3 @@
-// src/app/pages/rewards-page/rewards-page.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -45,20 +44,16 @@ export class RewardsPageComponent implements OnInit {
     const success = this.rewardService.redeemReward(this.user, reward.id);
     
     if (success) {
-      // Atualizar usuário
-      this.authService.updateUser(this.user);
+            this.authService.updateUser(this.user);
       
-      // Atualizar lista local
-      this.rewards = this.rewardService.getAll();
+            this.rewards = this.rewardService.getAll();
       
-      // Mostrar animação
-      this.showConfetti = true;
+            this.showConfetti = true;
       setTimeout(() => {
         this.showConfetti = false;
       }, 2000);
       
-      // Mostrar mensagem de sucesso
-      this.successMessage = `🎉 ${reward.title} resgatado!\n\nInstruções enviadas para:\n${this.user.email}`;
+            this.successMessage = `🎉 ${reward.title} resgatado!\n\nInstruções enviadas para:\n${this.user.email}`;
       this.showSuccessMessage = true;
       setTimeout(() => {
         this.showSuccessMessage = false;

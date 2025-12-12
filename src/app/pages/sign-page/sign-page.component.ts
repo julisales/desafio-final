@@ -1,4 +1,3 @@
-// sign.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
@@ -12,15 +11,12 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { takeUntil, finalize, catchError } from 'rxjs/operators';
-import { AuthService } from '../../services/auth.service'; // implemente/ajuste conforme sua app
-import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service'; import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sign-page',
-  templateUrl: './sign-page.component.html', // seu HTML
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  styleUrls: ['./sign-page.component.css'], // opcional
-})
+  templateUrl: './sign-page.component.html',   imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  styleUrls: ['./sign-page.component.css'], })
 export class SignComponent implements OnInit, OnDestroy {
   activeTab: 'login' | 'register' = 'login';
 
@@ -48,21 +44,18 @@ export class SignComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required]],
     });
 
-    // Register form: adiciona 'consent' obrigatório
-    this.registerForm = this.fb.group(
+        this.registerForm = this.fb.group(
       {
         name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', [Validators.required]],
-        consent: [false, [Validators.requiredTrue]], // <- obrigatório
-      },
+        consent: [false, [Validators.requiredTrue]],       },
       { validators: this.passwordsMatchValidator }
     );
   }
 
-  // custom validator para checar se password === confirmPassword
-  private passwordsMatchValidator(
+    private passwordsMatchValidator(
     group: AbstractControl
   ): ValidationErrors | null {
     const p = group.get('password')?.value;
@@ -96,8 +89,7 @@ onLogin() {
         this.router.navigate(['/main-page']);
       },
       error: (err) => {
-        // exibe mensagem amigável
-        this.serverError = err?.message ?? 'Email ou senha inválidos.';
+                this.serverError = err?.message ?? 'Email ou senha inválidos.';
       },
     });
 }
@@ -126,8 +118,7 @@ onLogin() {
 }
 
 
-  // helper para template (opcional)
-  fieldInvalid(form: FormGroup, field: string) {
+    fieldInvalid(form: FormGroup, field: string) {
     const ctrl = form.get(field);
     return !!(ctrl && ctrl.invalid && (ctrl.touched || ctrl.dirty));
   }

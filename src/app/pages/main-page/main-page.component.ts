@@ -45,8 +45,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  // ViewChild opcional para scroll (caso queira usar em vez de document.querySelector)
-  @ViewChild('containerGoals', { static: false })
+    @ViewChild('containerGoals', { static: false })
   containerGoals!: ElementRef<HTMLElement>;
 
   constructor(
@@ -58,27 +57,23 @@ export class MainPageComponent implements OnInit, OnDestroy {
   ) {}
 
   onResetCheck() {
-    // Forçar atualização da view
-    this.cdr.detectChanges();
+        this.cdr.detectChanges();
   }
 
   ngOnInit() {
-    // Assina o BehaviorSubject do AuthService
-    this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe((u) => {
+        this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe((u) => {
       this.user = u;
       this.loadGoals();
     });
 
-    // Em caso de falha na emissão (ex: já logado antes da assinatura), tenta snapshot
-    const snap = (this.auth as any).getCurrentUserSnapshot?.();
+        const snap = (this.auth as any).getCurrentUserSnapshot?.();
     if (!this.user && snap) {
       this.user = snap;
       this.loadGoals();
     }
 
     window.addEventListener('goals-reset', () => {
-      // Forçar recarregar metas quando houver reset
-      this.loadGoals();
+            this.loadGoals();
     });
   }
 
@@ -101,10 +96,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
         (this.user!.groupsIds ?? []).includes(g.ownerId)
     );
 
-    // Atualiza a lista completa e aplica o filtro atual
-    this.allGoals = [...this.personalGoals, ...this.groupGoals];
-    this.filterGoals(); // <-- CHAMA O FILTRO AQUI
-  }
+        this.allGoals = [...this.personalGoals, ...this.groupGoals];
+    this.filterGoals();   }
 
   filterGoals() {
     const allGoals = [...this.personalGoals, ...this.groupGoals];
@@ -114,23 +107,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     switch (this.selectedFilter) {
       case 'all':
-        // Mostra apenas metas que NÃO estão 100% completas
-        filtered = allGoals.filter((goal) => {
-          // Se daysCompleted >= daysTotal, meta está 100% completa
-          return goal.daysCompleted < goal.daysTotal;
+                filtered = allGoals.filter((goal) => {
+                    return goal.daysCompleted < goal.daysTotal;
         });
         break;
 
       case 'completed':
-        // Mostra apenas metas que estão 100% completas
-        filtered = allGoals.filter((goal) => {
+                filtered = allGoals.filter((goal) => {
           return goal.daysCompleted >= goal.daysTotal;
         });
         break;
 
       case 'nearest':
-        // Filtrar metas com dueDate mais próximo (apenas não completas)
-        filtered = allGoals
+                filtered = allGoals
           .filter((goal) => goal.daysCompleted < goal.daysTotal && goal.dueDate)
           .sort((a, b) => {
             const dateA = new Date(a.dueDate!).getTime();
@@ -140,31 +129,27 @@ export class MainPageComponent implements OnInit, OnDestroy {
         break;
 
       case 'highest':
-        // Filtrar metas com maior recompensa (apenas não completas)
-        filtered = allGoals
+                filtered = allGoals
           .filter((goal) => goal.daysCompleted < goal.daysTotal)
           .sort((a, b) => b.rewardXp - a.rewardXp);
         break;
 
       case 'daily':
-        // Filtrar metas diárias (apenas não completas)
-        filtered = allGoals.filter(
+                filtered = allGoals.filter(
           (goal) =>
             goal.periodicity === 'daily' && goal.daysCompleted < goal.daysTotal
         );
         break;
 
       case 'weekly':
-        // Filtrar metas semanais (apenas não completas)
-        filtered = allGoals.filter(
+                filtered = allGoals.filter(
           (goal) =>
             goal.periodicity === 'weekly' && goal.daysCompleted < goal.daysTotal
         );
         break;
 
       case 'monthly':
-        // Filtrar metas mensais (apenas não completas)
-        filtered = allGoals.filter(
+                filtered = allGoals.filter(
           (goal) =>
             goal.periodicity === 'monthly' &&
             goal.daysCompleted < goal.daysTotal
@@ -172,8 +157,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         break;
 
       case 'once':
-        // Filtrar metas únicas (apenas não completas)
-        filtered = allGoals.filter(
+                filtered = allGoals.filter(
           (goal) =>
             goal.periodicity === 'once' && goal.daysCompleted < goal.daysTotal
         );
@@ -186,8 +170,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     this.filteredGoals = filtered;
 
-    // Opcional: log para debug
-    console.log(`Filtro: ${this.selectedFilter}, Metas: ${filtered.length}`);
+        console.log(`Filtro: ${this.selectedFilter}, Metas: ${filtered.length}`);
   }
 
   /**
@@ -202,14 +185,12 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     if (!goal) return;
 
-    // Verifica se a meta já está 100% completa
-    if (goal.daysCompleted >= goal.daysTotal) {
+        if (goal.daysCompleted >= goal.daysTotal) {
       alert('Esta meta já está completamente concluída!');
       return;
     }
 
-    // Verifica periodicidade (se aplicável)
-    if (goal.periodicity && goal.periodicity !== 'once') {
+        if (goal.periodicity && goal.periodicity !== 'once') {
       if (!podeCompletar(goal.periodicity, goal.lastCompletedDate)) {
         const period = goal.periodicity;
         let message = 'Você já concluiu esta meta ';
@@ -229,19 +210,16 @@ export class MainPageComponent implements OnInit, OnDestroy {
       }
     }
 
-    // Marca como completa no dia (chama service)
-    const updatedGoal = this.goalService.markComplete(goalId);
+        const updatedGoal = this.goalService.markComplete(goalId);
 
     if (!updatedGoal) {
       alert('Não foi possível concluir a meta!');
       return;
     }
 
-    // Recarrega metas para atualizar a lista
-    this.loadGoals();
+        this.loadGoals();
 
-    // Se agora está 100% completa, gerar banner e abrir modal de compartilhamento
-    if (updatedGoal.daysCompleted >= updatedGoal.daysTotal) {
+        if (updatedGoal.daysCompleted >= updatedGoal.daysTotal) {
       try {
         await this.generateShareBanner(updatedGoal);
         this.showShareModal = true;
@@ -252,16 +230,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
         );
       }
     } else {
-      // Caso não tenha completado totalmente, mostrar um pequeno toast/alert
-      // (opcional; mantive comportamento simples)
-      alert(
+                  alert(
         `Você concluiu o dia da meta "${updatedGoal.title}" — continue assim!`
       );
     }
   }
 
-  // Scroll helpers (mantive, você pode trocar para usar ViewChild)
-  scrollLeft() {
+    scrollLeft() {
     const container =
       this.containerGoals?.nativeElement ??
       (document.querySelector('.container-goals') as HTMLElement);
@@ -274,16 +249,13 @@ export class MainPageComponent implements OnInit, OnDestroy {
     container?.scrollBy({ left: 300, behavior: 'smooth' });
   }
 
-  // helpers para template
-  get totalGoalsCount(): number {
-    return this.filteredGoals.length; // <-- MUDE PARA USAR filteredGoals
-  }
+    get totalGoalsCount(): number {
+    return this.filteredGoals.length;   }
 
   get levelProgressPercent(): number {
     if (!this.user) return 0;
     const xp = this.user.xp ?? 0;
-    const base = 1000; // XP por nível (ajuste se sua regra for diferente)
-    const mod = xp % base;
+    const base = 1000;     const mod = xp % base;
     return Math.round((mod / base) * 100);
   }
 
@@ -299,8 +271,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   showCreateModal = false;
 
   onGoalCreated(goal: Goal) {
-    // Recarrega metas
-    this.loadGoals();
+        this.loadGoals();
     this.showCreateModal = false;
     alert('Meta criada com sucesso!');
   }
@@ -327,8 +298,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
   shareGenerating = false;
   lastSharedGoalTitle = '';
 
-  // Função auxiliar para desenhar retângulos arredondados no canvas
-  private roundRect(
+    private roundRect(
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number,
@@ -377,8 +347,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     ctx.fillText(line.trim(), x, currentY);
   }
 
-  // --- Método: baixar a imagem já gerada (download) ---
-  downloadShareImage(): void {
+    downloadShareImage(): void {
     if (!this.shareImageDataUrl) {
       console.warn('Nenhuma imagem para download.');
       return;
@@ -391,8 +360,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         .replace(/\s+/g, '_')
         .toLowerCase();
       a.download = `phocus_conquista_${safeTitle}.png`;
-      // necessário anexar ao DOM para Safari/Firefox em alguns casos
-      document.body.appendChild(a);
+            document.body.appendChild(a);
       a.click();
       a.remove();
     } catch (err) {
@@ -403,26 +371,22 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  // --- Método: compartilhar via Web Share API (arquivos) com fallback ---
-  async shareViaNavigator(): Promise<void> {
+    async shareViaNavigator(): Promise<void> {
     if (!this.shareImageDataUrl) {
       console.warn('Nenhuma imagem para compartilhar.');
       alert('Gere a imagem primeiro antes de compartilhar.');
       return;
     }
 
-    // tenta usar a Web Share API com arquivos
-    try {
-      // converte dataURL para blob
-      const res = await fetch(this.shareImageDataUrl);
+        try {
+            const res = await fetch(this.shareImageDataUrl);
       const blob = await res.blob();
       const fileName = `phocus_conquista_${(
         this.lastSharedGoalTitle || 'meta'
       ).replace(/\s+/g, '_')}.png`;
       const file = new File([blob], fileName, { type: blob.type });
 
-      // verifica se navigator.canShare existe e aceita arquivos
-      const nav: any = navigator;
+            const nav: any = navigator;
       const shareData: any = {
         files: [file],
         title: 'Conquista desbloqueada!',
@@ -431,24 +395,19 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
       if (nav.canShare && nav.canShare(shareData)) {
         await nav.share(shareData);
-        // opcional: fechar modal se houver
-        this.showShareModal = false;
+                this.showShareModal = false;
         return;
       }
     } catch (err) {
-      // continua para fallback
-      console.warn('Web Share API com arquivos falhou ou não suportada:', err);
+            console.warn('Web Share API com arquivos falhou ou não suportada:', err);
     }
 
-    // fallback: abrir imagem em nova aba / permitir download manual
-    try {
+        try {
       const w = window.open(this.shareImageDataUrl!, '_blank');
       if (!w) {
-        // pop-up bloqueado → forçar download
-        this.downloadShareImage();
+                this.downloadShareImage();
       } else {
-        // opcional: fechar modal
-        this.showShareModal = false;
+                this.showShareModal = false;
       }
     } catch (err) {
       console.error('Fallback de compartilhamento falhou:', err);
@@ -458,8 +417,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Gera banner (canvas) e seta shareImageDataUrl
-  async generateShareBanner(goal: Goal): Promise<string> {
+    async generateShareBanner(goal: Goal): Promise<string> {
     this.shareGenerating = true;
     try {
       const width = 1080;
@@ -471,8 +429,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       canvas.height = height;
       const ctx = canvas.getContext('2d')!;
 
-      // Suas cores
-      const primary = '#f8e71c';
+            const primary = '#f8e71c';
       const bgDark = '#1f2937';
       const bgElement = '#2c3e50';
       const textLight = '#fdfdfd';
@@ -487,8 +444,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, width, height);
 
-      // Glow suave
-      ctx.fillStyle = shadowYellow;
+            ctx.fillStyle = shadowYellow;
       ctx.beginPath();
       ctx.arc(width * 0.75, height * 0.25, 500, 0, Math.PI * 2);
       ctx.fill();
@@ -516,19 +472,15 @@ export class MainPageComponent implements OnInit, OnDestroy {
       /* ================================
        Caixa translúcida
     ================================= */
-      // Caixa estilo Phocus (background-element)
-      const boxW = width - padding * 2;
+            const boxW = width - padding * 2;
       const boxH = 520;
       const boxX = padding;
       const boxY = padding + 80;
 
-      // fundo do card
-      ctx.fillStyle = '#2c3e50'; // var(--background-element)
-      this.roundRect(ctx, boxX, boxY, boxW, boxH, 32);
+            ctx.fillStyle = '#2c3e50';       this.roundRect(ctx, boxX, boxY, boxW, boxH, 32);
       ctx.fill();
 
-      // sombra suave como no site
-      ctx.save();
+            ctx.save();
       ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
       ctx.shadowBlur = 40;
       ctx.shadowOffsetY = 16;

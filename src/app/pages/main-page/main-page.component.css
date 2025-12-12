@@ -1,4 +1,4 @@
-/* ------- Header ------- */
+
 
 .header {
   background-color: var(--background-element);
@@ -130,7 +130,7 @@
   cursor: pointer;
 }
 
-/* Banner */
+
 
 .main {
   padding: 0 40px;
@@ -261,16 +261,16 @@
   width: 100%;
   align-items: center;
 
-  /* Esconde a barra em qualquer navegador */
+  
   scrollbar-width: none;
-  /* Firefox */
+  
   -ms-overflow-style: none;
-  /* IE/Edge antigo */
+  
 }
 
 .container-goals::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari */
+  
 }
 
 .card-goal {
@@ -374,7 +374,7 @@
   box-shadow: 0 0 10px var(--shadow-yellow);
 }
 
-/* Setas */
+
 .arrow {
   background-color: var(--background-element);
   width: 50px;
@@ -389,7 +389,7 @@
   font-size: 1rem;
 }
 
-/* progress and rewards */
+
 .rewards h2 {
   padding: 40px 0;
 }
@@ -549,7 +549,7 @@
   background: #ff5757;
 }
 
-/* Animação */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -572,7 +572,7 @@
   justify-content: center;
 }
 
-/* ===== Modal de compartilhamento ===== */
+
 .share-modal {
   position: fixed;
   inset: 0;
@@ -671,7 +671,7 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Opcional: pequeno banner de confirmação (quando a meta do dia foi marcada, se preferir usar) */
+
 .toast-confirm {
   position: fixed;
   bottom: 24px;
@@ -685,7 +685,7 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Para telas até 1024px (tablets landscape) */
+
 @media screen and (max-width: 1024px) {
   .banner {
     padding: 40px;
@@ -807,7 +807,7 @@
   
   .card-goal {
     min-width: calc(50% - 20px);
-    /* 2 cards por linha */
+    
     gap: 12px;
     padding: 16px;
     border-radius: 10px;
@@ -847,7 +847,7 @@
     width: 100%;
   }
   
-  /* Esconder setas em mobile quando há scroll */
+  
   .arrow {
     position: absolute;
     top: 50%;
@@ -869,13 +869,13 @@
     right: 0;
   }
   
-  /* Mostrar sempre as setas em mobile, mesmo com poucos cards */
+  
   .arrow {
     display: flex !important;
   }
 }
 
-/* Para telas até 767px (tablets portrait e smartphones) */
+
 @media screen and (max-width: 767px) {
   .banner {
     flex-direction: column;
@@ -945,7 +945,7 @@
     width: 30px;
   }
   
-  /* Esconde a navegação em mobile */
+  
   .header__nav {
     display: none;
   }
@@ -954,7 +954,7 @@
     gap: 15px;
   }
   
-  /* Ajusta containers de status */
+  
   .container_level,
   .container_xp,
   .container_sequence {
@@ -1005,7 +1005,7 @@
   
 }
 
-/* Para telas muito pequenas (smartphones pequenos) */
+
 @media screen and (max-width: 480px) {
   .banner {
     padding: 25px 15px;
